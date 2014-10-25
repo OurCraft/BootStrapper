@@ -4,6 +4,8 @@ import java.io.*;
 import java.lang.reflect.*;
 import java.net.*;
 
+import javax.swing.*;
+
 import org.json.*;
 
 public class BootstrapMain
@@ -16,6 +18,7 @@ public class BootstrapMain
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         try
         {
             frame.log("Getting infos from remote...");
@@ -81,7 +84,6 @@ public class BootstrapMain
             {
                     new String[0]
             });
-            System.exit(0);
         }
         catch(JSONException e)
         {
