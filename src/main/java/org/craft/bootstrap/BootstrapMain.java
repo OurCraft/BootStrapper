@@ -59,7 +59,7 @@ public class BootstrapMain
                 injectIntoClasspath(file);
             }
 
-            frame.log("Verifying local copy of launcher...");
+            frame.log("Verifying local copy of launcher... Requested file is " + object.getString("launcher"));
             File file = new File(new File(folder, "/versions/launcher/"), object.getString("launcher"));
             if(!file.getParentFile().exists())
                 file.getParentFile().mkdirs();
