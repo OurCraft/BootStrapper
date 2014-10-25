@@ -15,13 +15,14 @@ public class BootstrapFrame extends JFrame
         setTitle("OurCraft Launcher Bootstrap - " + "OurCraft:BuildNumber");
         textArea = new JTextArea();
         textArea.setPreferredSize(new Dimension(800, 500));
+        textArea.setEditable(false);
         add(new JScrollPane(textArea));
     }
 
     public void log(String message)
     {
         String formatted = "[Bootstrap] " + message;
-        textArea.setText(textArea.getText() + "\n" + formatted);
+        textArea.setText(textArea.getText() + formatted + "\n");
         System.out.println(formatted);
     }
 }

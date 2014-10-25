@@ -19,6 +19,10 @@ repositories {
 }
 
 //Tasks
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.0'
+}
+
 task processVersion(type: Copy) {
     from sourceSets.main.java 
     into filteredSourceDir 

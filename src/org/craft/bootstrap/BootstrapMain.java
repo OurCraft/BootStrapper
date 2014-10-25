@@ -1,5 +1,7 @@
 package org.craft.bootstrap;
 
+import javax.swing.*;
+
 public class BootstrapMain
 {
 
@@ -10,6 +12,9 @@ public class BootstrapMain
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        frame.log("Launching");
+
     }
 
 }
