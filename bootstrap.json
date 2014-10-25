@@ -1,5 +1,5 @@
 {
-	"launcher": "OurCraftLauncher-1.0.jar",
+	"launcher": "OurCraftLauncher-1.0.1.jar",
 	"libraries":
 	[
 		"net.sourceforge.argo:argo:3.12",
