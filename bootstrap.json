@@ -1,3 +1,8 @@
 {
-	"launcher": "OurCraftLauncher-InDev-0.1.jar"
+	"launcher": "OurCraftLauncher-InDev-0.1.jar",
+	"libraries":
+    [
+        "net.sourceforge.argo:argo:3.12",
+    	"commons-io:commons-io:2.4"
+    ]
 }
