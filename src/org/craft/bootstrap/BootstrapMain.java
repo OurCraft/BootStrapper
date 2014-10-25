@@ -1,6 +1,7 @@
 package org.craft.bootstrap;
 
 import java.io.*;
+import java.lang.reflect.*;
 import java.net.*;
 
 import javax.swing.*;
@@ -42,7 +43,7 @@ public class BootstrapMain
                 path += ".jar";
                 frame.log("Downloading library " + name + " from " + "http://repo1.maven.org/maven2/" + path);
 
-                File file = new File(folder, "libraries/" + path.replace(".", "/"));
+                File file = new File(folder, "libraries/" + path);
                 if(!file.getParentFile().exists())
                     file.getParentFile().mkdirs();
                 if(!file.exists())
@@ -55,6 +56,7 @@ public class BootstrapMain
                 {
                     frame.log("Library " + name + " already exists, using local copy");
                 }
+                injectIntoClasspath(file);
             }
 
             frame.log("Verifying local copy of launcher...");
@@ -69,9 +71,19 @@ public class BootstrapMain
                 frame.log("Done downloading launcher");
             }
             else
-                frame.log("Launcher jar file already exists");
+                frame.log("Launcher jar file already exists, using local copy.");
 
-            frame.log("Launching game");
+            injectIntoClasspath(file);
+            frame.log("Initializing launcher");
+
+            Class<?> clazz = Class.forName("org.craft.launch.OurCraftLauncher");
+            Method mainMethod = clazz.getMethod("main", String[].class);
+            mainMethod.setAccessible(true);
+            frame.dispose();
+            mainMethod.invoke(null, new Object[]
+            {
+                    new String[0]
+            });
         }
         catch(JSONException e)
         {
@@ -81,6 +93,20 @@ public class BootstrapMain
         {
             e.printStackTrace();
         }
+    }
+
+    private static void injectIntoClasspath(File file) throws Exception
+    {
+        URLClassLoader classLoader = (URLClassLoader) ClassLoader.getSystemClassLoader();
+        Method addURL = URLClassLoader.class.getDeclaredMethod("addURL", new Class<?>[]
+        {
+                URL.class
+        });
+        addURL.setAccessible(true);
+        addURL.invoke(classLoader, new Object[]
+        {
+                file.toURI().toURL()
+        });
     }
 
     private static void copy(String link, File file) throws Exception
